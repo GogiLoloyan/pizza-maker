@@ -1,1 +1,1 @@
-DEMO https://pizza-maker-react-redux.web.app/
+Demo https://pizza-maker-react-redux.web.app/
