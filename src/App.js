@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useRef } from 'react'
+import {
+	BrowserRouter as Router,
+	Route,
+	Switch,
+	Redirect
+} from 'react-router-dom'
+
+import Navbar from './layouts/Navbar'
+import Home from './pages/home'
+import LetsMake from './pages/letsMake'
+import { useCheckStore } from './hooks/checkStore.hook'
+import Draggable, { DragContext } from './components/Draggable'
+
+import './App.scss'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const draggable = useRef()
+	const { continueOrder } = useCheckStore()
+
+	return (
+		<Router>
+			<main className='app'>
+				<Navbar />
+				
+				{continueOrder && <Redirect to='/lets-make' />}
+
+				<Switch>
+					<Route exact path='/' render={() => <Home />} />
+					<Route
+						path='/lets-make'
+						render={() => (
+							<DragContext.Provider value={draggable}>
+								<LetsMake />
+							</DragContext.Provider>
+						)}
+					/>
+					<Redirect to='/' />
+				</Switch>
+
+				<Draggable ref={draggable} />
+			</main>
+		</Router>
+	)
 }
 
-export default App;
+export default App

@@ -1,0 +1,18 @@
+.draggable {
+	display: none;
+	position: absolute;
+	color: $gray;
+	text-transform: capitalize;
+	font-family: $font-header;
+	letter-spacing: 0.1em;
+	background-color: $green;
+	z-index: 1000;
+	user-select: none;
+	pointer-events: none;
+}
+
+.draggable-display {
+	display: grid;
+	align-content: center;
+	justify-content: center;
+}

@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border: none;
+	outline: none;
+}
+
+body {
+	font-family: 'Work Sans', sans-serif;
+	font-size: 16px;
+	scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+	width: 7px;
+	&-track {
+		background: #f1f1f1;
+	}
+	&-thumb {
+		background: #888;
+	}
+	&-thumb:hover {
+		background: #555;
+	}
+}
+
+ul {
+	list-style: none;
+}
+
+button {
+	border: none;
+	background-color: transparent;
+}
+
+@import './styles/main.scss';
+
+.app {
+	scroll-behavior: smooth;
+	overflow: hidden;
+}

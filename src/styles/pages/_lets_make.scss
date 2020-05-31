@@ -1,0 +1,264 @@
+.lets-make {
+	@include size(-webkit-fill-available, 100vh);
+	position: relative;
+	display: grid;
+	margin: 0 6vw;
+	padding: calc(80px + 2vh) 0 5vh 0;
+	grid-column-gap: 4vw;
+	grid-template-columns:  max-content minmax(250px, auto) max-content;
+	grid-template-areas: 'leftbar pizza rightbar';
+
+	&__leftbar {
+		grid-area: leftbar;
+		position: relative;
+		overflow: hidden;
+		@include size(15em, 100%);
+		display: grid;
+		grid-row-gap: 2em;
+		grid-template-rows: max-content 1fr max-content;
+		grid-template-areas:
+			'btn-prev'
+			'menu'
+			'btns';
+
+		.btn-prev {
+			grid-area: btn-prev;
+			width: 50%;
+		}
+
+		.menu-history {
+			position: absolute;
+			top: 3.5em;
+			font-style: italic;
+			letter-spacing: 0.1em;
+			color: $green;
+			font-size: 0.7em;
+		}
+
+		.btns--wrapper {
+			grid-area: btns;
+			display: grid;
+			grid-column-gap: 0.5em;
+			margin-right: 7px;
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.menu--wrapper {
+			grid-area: menu;
+			@extend %overflow-y-scroll;
+
+			.menu {
+				position: absolute;
+				display: grid;
+				grid-row-gap: 0.5em;
+				grid-auto-rows: 3em;
+				width: 100%;
+
+				&__item {
+					white-space: nowrap;
+				}
+			}
+		}
+
+		.ingredients {
+			position: absolute;
+			display: grid;
+			grid-row-gap: 0.5em;
+			grid-auto-rows: 7em;
+			width: 100%;
+
+			&__item {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				grid-template-areas: 'img info';
+
+				.image {
+					grid-area: img;
+					display: grid;
+					align-items: center;
+					justify-items: center;
+					color: $gray;
+					background-color: $green;
+					cursor: grab;
+				}
+
+				.info {
+					grid-area: info;
+					color: #313131;
+					font-size: 0.875em;
+					text-transform: lowercase;
+					padding: 0 0.5em;
+					@extend %grid-center;
+					grid-row-gap: 0.2em;
+					grid-auto-rows: max-content;
+					border: 2px dashed #007a5340;
+					user-select: none;
+
+					&__type {
+						font-size: 0.7em;
+						color: $green;
+						font-style: italic;
+						letter-spacing: 0.2em;
+						padding-bottom: 0.4em;
+						margin-bottom: 0.3em;
+						border-bottom: 2px dashed #007a5340;
+						user-select: none;
+					}
+
+					&__weight {
+						margin-top: 0.3em;
+						white-space: nowrap;
+					}
+
+					&__price {
+						white-space: nowrap;
+					}
+				}
+			}
+		}
+	}
+
+	&__pizza {
+		grid-area: pizza;
+		@include size(100%);
+		position: relative;
+		overflow: hidden;
+		border: 2px dashed #007a5340;
+		display: grid;
+		grid-template-columns: 1fr;
+
+		.pizza {
+			display: grid;
+			justify-items: center;
+			align-items: center;
+
+			&__base {
+				@include size(20vw);
+				min-width: 200px;
+				min-height: 200px;
+				background-color: #70544f20;
+				border: 1em dashed #70544f40;
+				border-radius: 50%;
+				@extend %grid-center;
+				font-family: $font-header;
+				letter-spacing: 0.1em;
+				font-size: 1.5em;
+				color: $brown;
+
+				span {
+					text-align: center;
+					pointer-events: none;
+				}
+			}
+
+			.onpizza {
+				border: 1em dashed $brown;
+			}
+		}
+
+		.type {
+			padding-right: 0.2em;
+		}
+	}
+
+	////////////////////////
+
+	.rightbar {
+		grid-area: rightbar;
+		width: 14em;
+		display: grid;
+		grid-row-gap: 2em;
+		grid-template-rows: 4fr 1fr;
+		grid-template-areas: 'ingredients' 'total';
+
+		.ingredients--wrapper {
+			grid-area: ingredients;
+			display: grid;
+			border: 2px dashed #007a5340;
+			@extend %overflow-y-scroll;
+
+			.ingredients {
+				position: absolute;
+				padding: 0.6em 0.4em;
+				font-size: 0.8em;
+				display: grid;
+				grid-row-gap: 1em;
+				width: 100%;
+
+				.ingredient {
+					width: 100%;
+					padding-bottom: 0.5em;
+					border-bottom: 1px dashed #bfded4;
+					display: grid;
+					grid-template-columns: max-content 1fr 5em;
+					grid-template-areas: 'btns info img';
+					grid-column-gap: 0.7em;
+
+					.btns--wrapper {
+						grid-area: btns;
+						display: grid;
+						grid-row-gap: 0.5em;
+						grid-auto-rows: 1fr;
+						grid-auto-columns: 2em;
+						width: 2em;
+
+						.btn-crease {
+							position: relative;
+							@extend %grid-center;
+
+							.icon {
+								line-height: 0;
+								font-weight: bold;
+								font-size: 2em;
+							}
+						}
+					}
+
+					&-info--wrapper {
+						grid-area: info;
+						display: grid;
+					}
+
+					&__count {
+						white-space: nowrap;
+					}
+
+					&__weight {
+						white-space: nowrap;
+					}
+
+					&__price {
+						white-space: nowrap;
+					}
+
+					&__image {
+						grid-area: img;
+						display: grid;
+						align-items: center;
+						justify-items: center;
+						background-color: $green;
+						color: $gray;
+					}
+				}
+			}
+		}
+
+		.total {
+			grid-area: total;
+			padding: 0.4em;
+			display: grid;
+			grid-row-gap: 0.4em;
+			border: 2px dashed #007a5340;
+
+			&__name {
+				padding-bottom: 0.2em;
+				border-bottom: 2px dashed #007a5340;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 768px) {
+}

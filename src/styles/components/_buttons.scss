@@ -1,0 +1,44 @@
+.btn-big {
+	text-transform: capitalize;
+	font-family: $font-header;
+	text-align: center;
+	font-size: 1.25em;
+	padding: 0.5em 1em;
+	letter-spacing: 0.1em;
+	color: $gray;
+	border: 2px solid $green;
+	background-color: $green;
+	cursor: pointer;
+
+	&:hover {
+		border: 2px solid $green;
+		background-color: transparent;
+		color: $green;
+	}
+}
+
+.btn-small {
+	text-transform: lowercase;
+	font-family: $font-header;
+	letter-spacing: 0.1em;
+	font-size: 0.875em;
+	padding: 0.3em;
+	color: $green;
+	border: 2px solid $green;
+	background-color: transparent;
+	cursor: pointer;
+
+	&:hover {
+		background-color: $green;
+		color: $gray;
+	}
+}
+
+.btn-clr-red {
+	border: 2px solid $red;
+	color: $red;
+	&:hover {
+		background-color: $red;
+		color: $gray;
+	}
+}

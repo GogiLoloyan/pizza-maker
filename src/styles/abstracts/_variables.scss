@@ -1,0 +1,22 @@
+// ---------- colors ---------- //
+$green: #007a53;
+$red: firebrick;
+$brown: #70544f;
+$gray: #ebeef5;
+
+// ---------- fonts ---------- //
+$font-header: 'Lobster', cursive;
+
+
+%overflow-y-scroll {
+	position: relative;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+%grid-center {
+	display: grid;
+	align-content: center;
+	justify-content: center;
+}
+
