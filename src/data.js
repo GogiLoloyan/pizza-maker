@@ -1,5 +1,6 @@
 import uniqid from 'uniqid'
-import { Enumify } from 'enumify'
+import Enumify from './enumify';
+// import { Enumify } from 'enumify'
 
 // --------------- Base --------------- //
 const baseTypes = {
