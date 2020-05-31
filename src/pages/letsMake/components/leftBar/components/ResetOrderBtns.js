@@ -2,6 +2,8 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import uniqid from 'uniqid'
 
+import { Bases } from '../../../../../data'
+
 import {
 	clearIngredients,
 	choosePizzaBase
@@ -10,20 +12,29 @@ import { addOrderedPizza } from '../../../../../store/actions/orderedPizzasActio
 
 import Button from '../../../../../components/Button'
 
-const ResetOrderBtns = ({ data }) => {
+const ResetOrderBtns = () => {
 	const dispatch = useDispatch()
 	const { currentPizza } = useSelector(store => store)
 
 	const reset = () => {
 		dispatch(clearIngredients())
-		dispatch(choosePizzaBase(data[0].standart.values[0]))
+		dispatch(choosePizzaBase(Bases.standart.values[0]))
 	}
 
 	const order = () => {
+		const message = alert || window.alert
+		if (currentPizza.ingredients.length === 0) {
+			message(
+				"You haven't chosen ingredients!\n...So please choose before order."
+			)
+			return
+		}
+
 		const orderdPizza = { ...currentPizza, id: uniqid('pizza-') }
 		dispatch(addOrderedPizza(orderdPizza))
 		reset()
-		window.alert('Order completed successfully!\nThank you for choosing us.')
+
+		message('Order completed successfully!\nThank you for choosing us.')
 	}
 
 	return (
