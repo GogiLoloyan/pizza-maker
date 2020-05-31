@@ -41,6 +41,7 @@ const LeftBar = () => {
 
 	const chooseSubMenu = useCallback(
 		name => {
+			console.log(DATA)
 			const submenu = DATA.find(item => item.name === name)
 			const values = submenu.enumKeys.map(name => name.replace(/_/g, ' '))
 			setSubmenu(state => ({ ...state, values, name, visible: true }))
