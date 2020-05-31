@@ -69,7 +69,7 @@ const DraggableImage = ({ ...ing }) => {
 		}
 	}
 
-	const dragTransition = { bounceDamping: 8 }
+	const dragTransition = { bounceDamping: 8, delay: 0.15 }
 
 	return (
 		<motion.div

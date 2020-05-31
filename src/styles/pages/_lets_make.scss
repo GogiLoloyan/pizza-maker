@@ -5,7 +5,7 @@
 	margin: 0 6vw;
 	padding: calc(80px + 2vh) 0 5vh 0;
 	grid-column-gap: 4vw;
-	grid-template-columns:  max-content minmax(250px, auto) max-content;
+	grid-template-columns: max-content minmax(250px, auto) max-content;
 	grid-template-areas: 'leftbar pizza rightbar';
 
 	&__leftbar {
@@ -144,6 +144,16 @@
 				letter-spacing: 0.1em;
 				font-size: 1.5em;
 				color: $brown;
+
+				.drag-text {
+					position: absolute;
+					top: 0;
+					left: 0;
+					padding: 0.7em;
+					font-size: 0.7em;
+					letter-spacing: 0.2em;
+					color: #007a5340;
+				}
 
 				span {
 					text-align: center;
