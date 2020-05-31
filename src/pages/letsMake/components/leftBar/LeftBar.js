@@ -42,7 +42,7 @@ const LeftBar = () => {
 	const chooseSubMenu = useCallback(
 		name => {
 			console.log(DATA)
-			const submenu = DATA.find(item => item.name === name)
+			const submenu = DATA.find(item => item.name === name).value
 			const values = submenu.enumKeys.map(name => name.replace(/_/g, ' '))
 			setSubmenu(state => ({ ...state, values, name, visible: true }))
 			setMenu(state => ({ ...state, visible: false }))
@@ -54,7 +54,7 @@ const LeftBar = () => {
 
 	const chooseIngredients = useCallback(
 		name => {
-			const _submenu = DATA.find(item => item.name === submenu.name)
+			const _submenu = DATA.find(item => item.name === submenu.name).value
 			const values = _submenu[name.replace(/ /g, '_')].values
 			setIngredients(state => ({ ...state, values, visible: true }))
 			setSubmenu(state => ({ ...state, visible: false }))

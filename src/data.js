@@ -1,5 +1,5 @@
 import uniqid from 'uniqid'
-import Enumify from './enumify';
+import Enumify from './enumify'
 
 // --------------- Base --------------- //
 const baseTypes = {
@@ -421,4 +421,7 @@ export class Ingredients extends Enumify {
 	}
 }
 
-export default [Bases, Ingredients]
+export default [
+	{ value: Bases, name: 'Bases' },
+	{ value: Ingredients, name: 'Ingredients' }
+]
