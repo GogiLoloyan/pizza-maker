@@ -13,7 +13,7 @@ import ResetOrderBtns from './components/ResetOrderBtns'
 
 const LeftBar = () => {
 	const [menu, setMenu] = useState({
-		values: DATA.map(({ name }) => name),
+		values: ['Bases', 'Ingredients'],
 		visible: true
 	})
 	const [submenu, setSubmenu] = useState({ visible: false })
