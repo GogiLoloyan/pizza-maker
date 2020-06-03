@@ -17,6 +17,8 @@ body {
 
 ::-webkit-scrollbar {
 	width: 7px;
+	height: 7px;
+	
 	&-track {
 		background: #f1f1f1;
 	}
@@ -40,6 +42,40 @@ button {
 @import './styles/main.scss';
 
 .app {
-	scroll-behavior: smooth;
 	overflow: hidden;
+	height: 100vh;
+	display: grid;
+	grid-row-gap: 2vh;
+	grid-template-rows: min-content 1fr;
+	padding: 0 6vw 5vh 6vw;
+}
+
+@media (max-width: 1024px) {
+	body {
+		font-size: 15px;
+	}
+}
+
+/* ----------- media iPad ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {
+	.app {
+		padding: 0 3vw 5vh 3vw;
+	}
+}
+
+/* ----------- media iPhon 6, 6S, 7 and 8 ----------- */
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+	.app {
+		padding: 0 2vw 5vh 2vw;
+	}
+}
+
+/* ----------- media iPhon X ----------- */
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape) {
+	.app {
+		padding: 0 2vw 5vh 2vw;
+	}
 }

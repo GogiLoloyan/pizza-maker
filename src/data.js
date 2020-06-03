@@ -154,7 +154,7 @@ export class Ingredients extends Enumify {
 		{
 			id: uniqid('ing-veg-'),
 			name: { en: 'onion' },
-			weight: '5',
+			weight: 5,
 			price: 20,
 			type: ingredientsTypes.VEGETABLE
 		},

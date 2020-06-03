@@ -1,9 +1,7 @@
 .home {
 	width: -webkit-fill-available;
 	display: grid;
-	margin: 0 6vw;
 	grid-column-gap: 4vw;
-	grid-template-rows: 100vh;
 	grid-template-columns: 2fr 1.5fr 1fr;
 	grid-template-areas: 'leftImg header rightImg';
 	--x: var(--mouse-x, 0%);

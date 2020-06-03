@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useState, useEffect } from 'react'
 
 import {
 	clearPizza,
@@ -7,15 +6,27 @@ import {
 } from '../store/actions/currentPizzaActions'
 import { clearOrderedPizzas } from '../store/actions/orderedPizzasActions'
 import { Bases } from '../data'
+import { useActions } from './actions.hook'
+import { loadState } from '../lib/localStorage'
 
 export const useCheckStore = () => {
-	const dispatch = useDispatch()
 	const [continueOrder, setContinueOrder] = useState(false)
-	const { currentPizza, orderdPizzas } = useSelector(state => state)
+	const [clearCurrent, chooseCurrentBase, clearOrdered] = useActions([
+		clearPizza,
+		choosePizzaBase,
+		clearOrderedPizzas
+	])
 
 	useEffect(() => {
+		const state = loadState()
+		if (!state) {
+			chooseCurrentBase(Bases.standart.values[0])
+			return
+		}
+
+		const { currentPizza, orderdPizzas } = state
 		if (!currentPizza.ingredients.length && !orderdPizzas.pizzas.length) {
-			dispatch(choosePizzaBase(Bases.standart.values[0]))
+			chooseCurrentBase(Bases.standart.values[0])
 			return
 		}
 
@@ -28,10 +39,10 @@ export const useCheckStore = () => {
 			return
 		}
 
-		dispatch(clearPizza())
-		dispatch(clearOrderedPizzas())
-		dispatch(choosePizzaBase(Bases.standart.values[0]))
+		clearCurrent()
+		clearOrdered()
+		chooseCurrentBase(Bases.standart.values[0])
 	}, [])
 
-	return { continueOrder }
+	return continueOrder
 }

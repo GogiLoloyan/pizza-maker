@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useContext, useRef } from 'react'
 import { motion } from 'framer-motion'
 
 import {
@@ -8,16 +7,29 @@ import {
 } from '../../../../../../../store/actions/currentPizzaActions'
 
 import { DragContext } from '../../../../../../../components/Draggable'
+import { useActions } from '../../../../../../../hooks/actions.hook'
 
 const DraggableImage = ({ ...ing }) => {
-	const dispatch = useDispatch()
-	const { current: draggable } = useContext(DragContext)
+	const dragImage = useRef()
+	const {
+		draggableRef: { current: draggable },
+		pizzaRef: { current: pizza }
+	} = useContext(DragContext)
+	const [addIng, chooseBase] = useActions([addIngredient, choosePizzaBase])
+
+	const dragedIngredient = { data: null }
+
+	const cursor = style => {
+		document.body.style.cursor = style
+	}
 
 	const handleDragStart = event => {
 		try {
 			const name = event.target.attributes['data-name'].value
-			const { top, left, width, height } = event.target.getBoundingClientRect()
-			const ingredient = JSON.stringify(ing)
+			const { top, left, width, height } = dragImage.current.getBoundingClientRect()
+			dragedIngredient.data = ing
+
+			cursor('grabbing')
 
 			draggable.innerText = name
 			draggable.style.top = `${top}px`
@@ -25,26 +37,27 @@ const DraggableImage = ({ ...ing }) => {
 			draggable.style.width = `${width}px`
 			draggable.style.height = `${height}px`
 			draggable.classList.add('draggable-display')
-			draggable.setAttribute('ingredient', ingredient)
 		} catch (e) {
 			console.error(`Error in onDragStart: ${e.message}`)
 		}
 	}
 
-	let flag = true
-	let pizza
-
-	const handleDragEnd = event => {
+	const handleDragEnd = (event, info) => {
 		try {
-			setTimeout(() => draggable.classList.remove('draggable-display'), 150)
+			draggable.classList.remove('draggable-display')
+			cursor('initial')
 
-			if (event.target.classList.contains('pizza__base')) {
-				setTimeout(() => pizza.classList.remove('onpizza'), 150)
-				const ing = JSON.parse(draggable.getAttribute('ingredient'))
-				if (ing.id.startsWith('base')) {
-					dispatch(choosePizzaBase(ing))
+			if (pizza.classList.contains('onpizza')) {
+				pizza.classList.remove('onpizza')
+
+				dragImage.current.classList.add('image-opacity')
+				setTimeout(() => dragImage.current.classList.remove('image-opacity'), 1300)
+
+				const { data } = dragedIngredient
+				if (data.id.startsWith('base')) {
+					chooseBase(data)
 				} else {
-					dispatch(addIngredient(ing))
+					addIng(data)
 				}
 			}
 		} catch (e) {
@@ -52,33 +65,42 @@ const DraggableImage = ({ ...ing }) => {
 		}
 	}
 
-	const handleDrag = (event, { point }) => {
+	let onPizza = false
+
+	const handleDrag = (event, { point: { x, y } }) => {
 		try {
-			draggable.style.transform = `translate(${point.x}px, ${point.y}px)`
-			if (event.target.classList.contains('pizza__base')) {
-				if (!flag) return
-				flag = false
-				pizza = event.target
+			draggable.style.transform = `translate(${x}px, ${y}px)`
+			// event.target.hidden = true
+			const elemBelow = document.elementFromPoint(event.clientX, event.clientY)
+			// event.target.hidden = false
+
+			if (elemBelow === pizza) {
+				if (onPizza) return
+				onPizza = true
 				pizza.classList.add('onpizza')
 			} else {
-				flag = true
-				pizza && pizza.classList.remove('onpizza')
+				if (onPizza) {
+					onPizza = false
+					pizza.classList.remove('onpizza')
+				}
 			}
 		} catch (e) {
 			console.error(`Error in handleDrag: ${e.message}`)
 		}
 	}
 
-	const dragTransition = { bounceDamping: 8, delay: 0.15 }
+	const dragTransition = { bounceDamping: 17 }
 
 	return (
 		<motion.div
 			drag
+			ref={dragImage}
 			onDrag={handleDrag}
 			onDragStart={handleDragStart}
 			onDragEnd={handleDragEnd}
 			dragTransition={dragTransition}
 			dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+			whileTap={{ cursor: 'grabbing' }}
 			dragElastic={1}
 			data-name={ing.name.en}
 			className='image'

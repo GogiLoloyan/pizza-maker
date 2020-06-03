@@ -1,11 +1,8 @@
 .lets-make {
-	@include size(-webkit-fill-available, 100vh);
 	position: relative;
 	display: grid;
-	margin: 0 6vw;
-	padding: calc(80px + 2vh) 0 5vh 0;
 	grid-column-gap: 4vw;
-	grid-template-columns: max-content minmax(250px, auto) max-content;
+	grid-template-columns: max-content 1fr max-content;
 	grid-template-areas: 'leftbar pizza rightbar';
 
 	&__leftbar {
@@ -58,60 +55,75 @@
 					white-space: nowrap;
 				}
 			}
-		}
 
-		.ingredients {
-			position: absolute;
-			display: grid;
-			grid-row-gap: 0.5em;
-			grid-auto-rows: 7em;
-			width: 100%;
-
-			&__item {
+			.ingredients {
+				position: absolute;
 				display: grid;
-				grid-template-columns: 1fr 1fr;
-				grid-template-areas: 'img info';
+				grid-row-gap: 0.5em;
+				grid-auto-rows: 7em;
+				width: 100%;
 
-				.image {
-					grid-area: img;
+				&__item {
 					display: grid;
-					align-items: center;
-					justify-items: center;
-					color: $gray;
-					background-color: $green;
-					cursor: grab;
-				}
+					grid-template-columns: 1fr 1fr;
+					grid-template-areas: 'img info';
 
-				.info {
-					grid-area: info;
-					color: #313131;
-					font-size: 0.875em;
-					text-transform: lowercase;
-					padding: 0 0.5em;
-					@extend %grid-center;
-					grid-row-gap: 0.2em;
-					grid-auto-rows: max-content;
-					border: 2px dashed #007a5340;
-					user-select: none;
+					.image {
+						grid-area: img;
+						display: grid;
+						align-items: center;
+						justify-items: center;
+						height: 100%;
+						color: $gray;
+						background-color: $green;
+						cursor: grab;
+					}
 
-					&__type {
-						font-size: 0.7em;
-						color: $green;
-						font-style: italic;
-						letter-spacing: 0.2em;
-						padding-bottom: 0.4em;
-						margin-bottom: 0.3em;
-						border-bottom: 2px dashed #007a5340;
+					.image-opacity {
+						opacity: 0;
+						animation: opac 0.6s ease-out 0.7s forwards;
+					}
+
+					@keyframes opac {
+						from {
+							opacity: 0;
+						}
+
+						to {
+							opacity: 1;
+						}
+					}
+
+					.info {
+						grid-area: info;
+						color: #313131;
+						font-size: 0.875em;
+						text-transform: lowercase;
+						padding: 0 0.5em;
+						@extend %grid-center;
+						grid-row-gap: 0.2em;
+						grid-auto-rows: max-content;
+						border: 2px dashed #007a5340;
 						user-select: none;
-					}
 
-					&__weight {
-						margin-top: 0.3em;
-						white-space: nowrap;
-					}
+						&__type {
+							font-size: 0.7em;
+							color: $green;
+							font-style: italic;
+							letter-spacing: 0.2em;
+							padding-bottom: 0.4em;
+							border-bottom: 2px dashed #007a5340;
+							user-select: none;
+						}
 
-					&__price {
-						white-space: nowrap;
+						&__weight {
+							margin-top: 0.3em;
+							white-space: nowrap;
+						}
+
+						&__price {
+							white-space: nowrap;
+						}
 					}
 				}
 			}
@@ -133,9 +145,7 @@
 			align-items: center;
 
 			&__base {
-				@include size(20vw);
-				min-width: 200px;
-				min-height: 200px;
+				@include size(calc(20px + 22vw));
 				background-color: #70544f20;
 				border: 1em dashed #70544f40;
 				border-radius: 50%;
@@ -171,14 +181,12 @@
 		}
 	}
 
-	////////////////////////
-
-	.rightbar {
+	&__rightbar {
 		grid-area: rightbar;
 		width: 14em;
 		display: grid;
 		grid-row-gap: 2em;
-		grid-template-rows: 4fr 1fr;
+		grid-template-rows: 1fr min-content;
 		grid-template-areas: 'ingredients' 'total';
 
 		.ingredients--wrapper {
@@ -268,7 +276,245 @@
 	}
 }
 
-@media screen and (max-width: 1024px) {
+/* ----------- media iPad ----------- */
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {
+	.lets-make {
+		grid-column-gap: 3vw;
+		grid-template-columns: max-content minmax(250px, auto) max-content;
+
+		.menu--wrapper {
+			.ingredients {
+				grid-auto-rows: 6em;
+
+				&__item {
+					grid-template-columns: minmax(6em, 50%) 1fr;
+
+					.info {
+						&__type {
+							font-size: 0.6em;
+						}
+						&__weight {
+							margin-top: 0;
+						}
+					}
+				}
+			}
+		}
+	}
 }
-@media screen and (max-width: 768px) {
+
+// iPhone 5, 5S, 5C and 5SE ---- 320px - 568px
+// iPhone 6, 6S, 7 and 8 ------- 375px - 667px
+// iPhone 6+, 7+ and 8+ -------- 414px - 736px
+// iPhone 6+, 7+ and 8+ -------- 414px - 736px
+// iPhone X -------------------- 375px - 812px
+
+/* ----------- media iPhon 5, 5S, 5C and 5SE, 6, 6S, 7 and 8 (with +) ----------- */
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+	.lets-make {
+		&__pizza {
+			.pizza {
+				&__base {
+					font-size: 1em;
+				}
+			}
+		}
+	}
+}
+
+/* ----------- media iPhon 6, 6S, 7 and 8 (with +) ----------- */
+
+@media only screen and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+	.lets-make {
+		grid-row-gap: 2vw;
+		grid-template-columns: none;
+		grid-template-rows: max-content 1fr max-content;
+		grid-template-areas: 'rightbar' 'pizza' 'leftbar';
+
+		&__leftbar {
+			width: 100%;
+			grid-row-gap: 0.7em;
+
+			.menu-history {
+				text-align: end;
+				top: 0;
+				right: 0;
+				width: 40%;
+				word-break: break-word;
+			}
+
+			.btns--wrapper {
+				margin-right: 0;
+			}
+
+			.menu--wrapper {
+				overflow-y: hidden;
+				overflow-x: scroll;
+				height: 6.4em;
+
+				.menu {
+					grid-column-gap: 0.5em;
+					grid-template-columns: auto;
+					grid-auto-flow: column;
+					grid-auto-rows: 6em;
+
+					&__item {
+						font-size: 1em;
+					}
+				}
+
+				.ingredients {
+					grid-column-gap: 0.5em;
+					grid-template-columns: max-content;
+					grid-auto-flow: column;
+					grid-auto-rows: 6em;
+
+					&__item {
+						grid-template-columns: 6em max-content;
+
+						.info {
+							&__name {
+								word-break: normal;
+							}
+							&__type {
+								font-size: 0.6em;
+							}
+							&__weight {
+								margin-top: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&__pizza {
+			width: 100%;
+			position: relative;
+			overflow: hidden;
+			border: 2px dashed #007a5340;
+			grid-template-columns: 1fr;
+
+			.pizza {
+				&__base {
+					@include size(60vw);
+					font-size: 1.5em;
+
+					.drag-text {
+						display: none;
+					}
+				}
+			}
+		}
+
+		&__rightbar {
+			width: 100%;
+			grid-row-gap: 2vw;
+
+			.ingredients--wrapper {
+				overflow-y: hidden;
+				overflow-x: scroll;
+				height: 5.5em;
+				border: none;
+
+				.ingredients {
+					grid-column-gap: 0.7em;
+					grid-auto-flow: column;
+					grid-template-columns: min-content;
+
+					.ingredient {
+						border: none;
+						padding: 0;
+						grid-column-gap: 0;
+
+						.btns--wrapper {
+							border: 2px dashed #007a5340;
+							border-right: none;
+							padding: 0.5em;
+							width: 3em;
+						}
+
+						&-info--wrapper {
+							padding: 0 0.5em 0 0.3em;
+							border-width: 2px 0;
+							border-style: dashed;
+							border-color: #007a5340;
+						}
+					}
+				}
+			}
+
+			.total {
+				grid-auto-flow: column;
+				grid-auto-columns: auto;
+				grid-column-gap: 0.5em;
+				justify-content: space-around;
+
+				&__name {
+					border: none;
+				}
+
+				.type {
+					padding-right: 0.4em;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+	.lets-make {
+		grid-column-gap: 2vw;
+
+		&__leftbar {
+			width: 12em;
+
+			.menu--wrapper {
+				.menu {
+					grid-row-gap: 0.3em;
+					grid-auto-rows: 2.2em;
+					width: 100%;
+
+					&__item {
+						white-space: nowrap;
+						font-size: 1em;
+					}
+				}
+
+				.ingredients {
+					grid-auto-rows: 6em;
+
+					&__item {
+						grid-template-columns: 40% 1fr;
+
+						.info {
+							&__type {
+								font-size: 0.6em;
+							}
+							&__weight {
+								margin-top: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		&__rightbar {
+			width: 12em;
+			grid-row-gap: 1em;
+
+			.ingredients--wrapper {
+				.ingredients {
+					font-size: 0.7em;
+				}
+
+				.total {
+					grid-row-gap: 0.1em;
+				}
+			}
+		}
+	}
 }

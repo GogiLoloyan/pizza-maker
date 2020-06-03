@@ -1,18 +1,10 @@
 .navbar {
-	position: fixed;
-	top: 0;
-	z-index: 1;
-	padding: 0 6vw;
+	position: relative;
 	display: grid;
-	width: -webkit-fill-available;
-	background-color: #ffffff;
-	mix-blend-mode: color-burn;
-	grid-template-columns: 1fr max-content 1fr;
-	grid-template-areas: 'right menu left';
+	justify-content: center;
 
 	&__menu {
 		--item-width: 130px;
-		grid-area: menu;
 		list-style: none;
 		text-align: center;
 		position: relative;
@@ -64,6 +56,44 @@
 			width: var(--item-width);
 			background-color: $green;
 			transition: left 0.7s cubic-bezier(0, 0.01, 0, 1.01);
+		}
+	}
+
+	.hamburger {
+		width: 25px;
+		height: 13px;
+		display: none;
+		flex-direction: column;
+		justify-content: space-between;
+
+		span {
+			height: 4px;
+			background-color: $green;
+
+			&:first-child {
+				width: 70%;
+			}
+			&:last-child {
+				width: 100%;
+			}
+		}
+	}
+
+	@media (max-width: 1024px) {
+		& {
+			height: 30px;
+			margin-top: 2vh;
+			align-items: center;
+			justify-content: flex-end;
+
+			&__menu {
+				display: none;
+			}
+
+			.hamburger {
+				display: flex;
+				position: relative;
+			}
 		}
 	}
 }

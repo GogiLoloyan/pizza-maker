@@ -11,7 +11,7 @@ const RightBar = () => {
 	)
 
 	return (
-		<div className='rightbar'>
+		<div className='lets-make__rightbar'>
 			<Ingredients ingredients={ingredients} />
 			<Total weight={weight} price={price} />
 		</div>

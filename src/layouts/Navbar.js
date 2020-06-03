@@ -15,6 +15,11 @@ const Navbar = () => {
 				</li>
 				<div className='underline' />
 			</ul>
+			
+			<div className='hamburger'>
+				<span />
+				<span />
+			</div>
 		</nav>
 	)
 }
